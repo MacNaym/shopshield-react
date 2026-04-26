@@ -1,9 +1,11 @@
-"use strict";
+'use strict';
+
+var react = require('react');
+var jsxRuntime = require('react/jsx-runtime');
+
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __propIsEnum = Object.prototype.propertyIsEnumerable;
@@ -20,39 +22,6 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// src/index.ts
-var index_exports = {};
-__export(index_exports, {
-  DEFAULT_BRANDING: () => DEFAULT_BRANDING,
-  ShopShieldBanner: () => ShopShieldBanner,
-  clearConsent: () => clearConsent,
-  fetchConfig: () => fetchConfig,
-  readConsent: () => readConsent,
-  resolveBranding: () => resolveBranding,
-  useShopShield: () => useShopShield,
-  writeConsent: () => writeConsent
-});
-module.exports = __toCommonJS(index_exports);
-
-// src/ShopShieldBanner.tsx
-var import_react2 = require("react");
-
-// src/useShopShield.ts
-var import_react = require("react");
 
 // src/client.ts
 var SUPABASE_URL = "https://cukvfgdrnmsnlfuxezqe.supabase.co";
@@ -215,12 +184,12 @@ async function logConsent(shop, visitorId, state, logUrl) {
 // src/useShopShield.ts
 var LOG_URL = "https://n8n.luigipesante.com/webhook/v1/log-consent";
 function useShopShield(shop) {
-  const [config, setConfig] = (0, import_react.useState)(null);
-  const [loading, setLoading] = (0, import_react.useState)(true);
-  const [error, setError] = (0, import_react.useState)(null);
-  const [consent, setConsent] = (0, import_react.useState)(() => readConsent());
-  const [showBanner, setShowBanner] = (0, import_react.useState)(false);
-  (0, import_react.useEffect)(() => {
+  const [config, setConfig] = react.useState(null);
+  const [loading, setLoading] = react.useState(true);
+  const [error, setError] = react.useState(null);
+  const [consent, setConsent] = react.useState(() => readConsent());
+  const [showBanner, setShowBanner] = react.useState(false);
+  react.useEffect(() => {
     let cancelled = false;
     setLoading(true);
     fetchConfig(shop).then((data) => {
@@ -236,12 +205,12 @@ function useShopShield(shop) {
       cancelled = true;
     };
   }, [shop]);
-  (0, import_react.useEffect)(() => {
+  react.useEffect(() => {
     if (!loading) {
       setShowBanner(!consent.given);
     }
   }, [loading, consent.given]);
-  const saveConsent = (0, import_react.useCallback)((analytics, marketing) => {
+  const saveConsent = react.useCallback((analytics, marketing) => {
     var _a;
     const record = writeConsent(analytics, marketing);
     setConsent(record);
@@ -253,8 +222,8 @@ function useShopShield(shop) {
       setTimeout(() => window.location.reload(), 300);
     }
   }, [shop, config]);
-  const acceptAll = (0, import_react.useCallback)(() => saveConsent(true, true), [saveConsent]);
-  const rejectAll = (0, import_react.useCallback)(() => saveConsent(false, false), [saveConsent]);
+  const acceptAll = react.useCallback(() => saveConsent(true, true), [saveConsent]);
+  const rejectAll = react.useCallback(() => saveConsent(false, false), [saveConsent]);
   const branding = config ? resolveBranding(config.settings) : null;
   return {
     config,
@@ -268,15 +237,12 @@ function useShopShield(shop) {
     saveConsent
   };
 }
-
-// src/ShopShieldBanner.tsx
-var import_jsx_runtime = require("react/jsx-runtime");
 function ShopShieldBanner({ shop, onConsent, className }) {
   const { branding, loading, showBanner, acceptAll, rejectAll, saveConsent } = useShopShield(shop);
-  const [analytics, setAnalytics] = (0, import_react2.useState)(false);
-  const [marketing, setMarketing] = (0, import_react2.useState)(false);
-  const [tabOpen, setTabOpen] = (0, import_react2.useState)(false);
-  const [panelOpen, setPanelOpen] = (0, import_react2.useState)(false);
+  const [analytics, setAnalytics] = react.useState(false);
+  const [marketing, setMarketing] = react.useState(false);
+  const [tabOpen, setTabOpen] = react.useState(false);
+  const [panelOpen, setPanelOpen] = react.useState(false);
   if (loading || !branding) return null;
   const primary = branding.primary_color;
   const accent = branding.accent_color;
@@ -385,43 +351,43 @@ function ShopShieldBanner({ shop, onConsent, className }) {
     overflow: "hidden",
     display: panelOpen ? "block" : "none"
   };
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
-    showBanner && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: overlay, className, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: box, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: head, children: [
-        logoPopup && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: logoPopup, style: { height: 26 }, alt: "ShopShield" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 13, fontWeight: 600, color: "white" }, children: "Privacy & Cookie" })
+  return /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+    showBanner && /* @__PURE__ */ jsxRuntime.jsx("div", { style: overlay, className, children: /* @__PURE__ */ jsxRuntime.jsxs("div", { style: box, children: [
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { style: head, children: [
+        logoPopup && /* @__PURE__ */ jsxRuntime.jsx("img", { src: logoPopup, style: { height: 26 }, alt: "ShopShield" }),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: 13, fontWeight: 600, color: "white" }, children: "Privacy & Cookie" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: body, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { fontSize: 13, color: "#475569", lineHeight: 1.6, margin: "0 0 4px" }, children: text }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: toggleRow, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 600, color: "#08152E" }, children: "Necessari" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: "#94a3b8", marginTop: 2 }, children: "Login, carrello, sicurezza" })
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { style: body, children: [
+        /* @__PURE__ */ jsxRuntime.jsx("p", { style: { fontSize: 13, color: "#475569", lineHeight: 1.6, margin: "0 0 4px" }, children: text }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: toggleRow, children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 12, fontWeight: 600, color: "#08152E" }, children: "Necessari" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 10, color: "#94a3b8", marginTop: 2 }, children: "Login, carrello, sicurezza" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: __spreadProps(__spreadValues({}, switchStyle(true)), { opacity: 0.5, cursor: "default" }), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: thumb(true) }) })
+          /* @__PURE__ */ jsxRuntime.jsx("div", { style: __spreadProps(__spreadValues({}, switchStyle(true)), { opacity: 0.5, cursor: "default" }), children: /* @__PURE__ */ jsxRuntime.jsx("div", { style: thumb(true) }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: toggleRow, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 600, color: "#08152E" }, children: "Analitici" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: "#94a3b8", marginTop: 2 }, children: "Statistiche di navigazione anonime" })
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: toggleRow, children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 12, fontWeight: 600, color: "#08152E" }, children: "Analitici" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 10, color: "#94a3b8", marginTop: 2 }, children: "Statistiche di navigazione anonime" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: switchStyle(analytics), onClick: () => setAnalytics((a) => !a), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: thumb(analytics) }) })
+          /* @__PURE__ */ jsxRuntime.jsx("div", { style: switchStyle(analytics), onClick: () => setAnalytics((a) => !a), children: /* @__PURE__ */ jsxRuntime.jsx("div", { style: thumb(analytics) }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: __spreadProps(__spreadValues({}, toggleRow), { marginBottom: 10 }), children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 600, color: "#08152E" }, children: "Marketing" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: "#94a3b8", marginTop: 2 }, children: "Pubblicit\xE0 personalizzata" })
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: __spreadProps(__spreadValues({}, toggleRow), { marginBottom: 10 }), children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 12, fontWeight: 600, color: "#08152E" }, children: "Marketing" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 10, color: "#94a3b8", marginTop: 2 }, children: "Pubblicit\xE0 personalizzata" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: switchStyle(marketing), onClick: () => setMarketing((m) => !m), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: thumb(marketing) }) })
+          /* @__PURE__ */ jsxRuntime.jsx("div", { style: switchStyle(marketing), onClick: () => setMarketing((m) => !m), children: /* @__PURE__ */ jsxRuntime.jsx("div", { style: thumb(marketing) }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { fontSize: 10, color: "#94a3b8", marginBottom: 4 }, children: [
-          privacyUrl && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: privacyUrl, style: { color: "#94a3b8", textDecoration: "none" }, children: "Privacy Policy" }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { fontSize: 10, color: "#94a3b8", marginBottom: 4 }, children: [
+          privacyUrl && /* @__PURE__ */ jsxRuntime.jsx("a", { href: privacyUrl, style: { color: "#94a3b8", textDecoration: "none" }, children: "Privacy Policy" }),
           privacyUrl && dsarUrl && " \xB7 ",
-          dsarUrl && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: dsarUrl, target: "_blank", rel: "noreferrer", style: { color: "#94a3b8", textDecoration: "none" }, children: "I tuoi diritti GDPR" })
+          dsarUrl && /* @__PURE__ */ jsxRuntime.jsx("a", { href: dsarUrl, target: "_blank", rel: "noreferrer", style: { color: "#94a3b8", textDecoration: "none" }, children: "I tuoi diritti GDPR" })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: actions, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { style: actions, children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
           "button",
           {
             style: { flex: 1, padding: 11, border: "none", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", background: "#f1f5f9", color: "#08152E" },
@@ -429,7 +395,7 @@ function ShopShieldBanner({ shop, onConsent, className }) {
             children: "Rifiuta tutti"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        /* @__PURE__ */ jsxRuntime.jsx(
           "button",
           {
             style: { flex: 1, padding: 11, border: "none", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", color: "white", background: primary },
@@ -437,7 +403,7 @@ function ShopShieldBanner({ shop, onConsent, className }) {
             children: "Salva scelte"
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        /* @__PURE__ */ jsxRuntime.jsx(
           "button",
           {
             style: { flex: 1, padding: 11, border: "none", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", color: "white", background: accent },
@@ -447,7 +413,7 @@ function ShopShieldBanner({ shop, onConsent, className }) {
         )
       ] })
     ] }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+    /* @__PURE__ */ jsxRuntime.jsxs(
       "div",
       {
         style: tab,
@@ -455,41 +421,41 @@ function ShopShieldBanner({ shop, onConsent, className }) {
         onMouseLeave: () => setTabOpen(false),
         onClick: () => setPanelOpen((p) => !p),
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { flexShrink: 0, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 8px" }, children: logoTab ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: logoTab, style: { width: 24, height: 24, display: "block", borderRadius: 4 }, alt: "" }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { fontSize: 16 }, children: "\u{1F6E1}\uFE0F" }) }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { style: { color: "white", fontSize: 12, fontWeight: 700, paddingRight: 14, opacity: tabOpen ? 1 : 0, transition: "opacity .2s" }, children: "Privacy Active" })
+          /* @__PURE__ */ jsxRuntime.jsx("div", { style: { flexShrink: 0, width: 40, height: 40, display: "flex", alignItems: "center", justifyContent: "center", padding: "0 8px" }, children: logoTab ? /* @__PURE__ */ jsxRuntime.jsx("img", { src: logoTab, style: { width: 24, height: 24, display: "block", borderRadius: 4 }, alt: "" }) : /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: 16 }, children: "\u{1F6E1}\uFE0F" }) }),
+          /* @__PURE__ */ jsxRuntime.jsx("span", { style: { color: "white", fontSize: 12, fontWeight: 700, paddingRight: 14, opacity: tabOpen ? 1 : 0, transition: "opacity .2s" }, children: "Privacy Active" })
         ]
       }
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: panel, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { background: primary, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between" }, children: [
-        logoPopup && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: logoPopup, style: { height: 28 }, alt: "ShopShield" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", { onClick: () => setPanelOpen(false), style: { background: "none", border: "none", color: "#94a3b8", fontSize: 18, cursor: "pointer" }, children: "\u2715" })
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { style: panel, children: [
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { background: primary, padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between" }, children: [
+        logoPopup && /* @__PURE__ */ jsxRuntime.jsx("img", { src: logoPopup, style: { height: 28 }, alt: "ShopShield" }),
+        /* @__PURE__ */ jsxRuntime.jsx("button", { onClick: () => setPanelOpen(false), style: { background: "none", border: "none", color: "#94a3b8", fontSize: 18, cursor: "pointer" }, children: "\u2715" })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: 18 }, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 700, color: "#08152E", marginBottom: 12 }, children: "PREFERENZE COOKIE" }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: "1px solid #f1f5f9" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 600 }, children: "Necessari" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: "#94a3b8" }, children: "Sempre attivi" })
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { padding: 18 }, children: [
+        /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 12, fontWeight: 700, color: "#08152E", marginBottom: 12 }, children: "PREFERENZE COOKIE" }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: "1px solid #f1f5f9" }, children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 12, fontWeight: 600 }, children: "Necessari" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 10, color: "#94a3b8" }, children: "Sempre attivi" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: __spreadProps(__spreadValues({}, switchStyle(true)), { opacity: 0.5, cursor: "default" }), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: thumb(true) }) })
+          /* @__PURE__ */ jsxRuntime.jsx("div", { style: __spreadProps(__spreadValues({}, switchStyle(true)), { opacity: 0.5, cursor: "default" }), children: /* @__PURE__ */ jsxRuntime.jsx("div", { style: thumb(true) }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: "1px solid #f1f5f9" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 600 }, children: "Analitici" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: "#94a3b8" }, children: "Statistiche di navigazione" })
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0", borderBottom: "1px solid #f1f5f9" }, children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 12, fontWeight: 600 }, children: "Analitici" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 10, color: "#94a3b8" }, children: "Statistiche di navigazione" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: switchStyle(analytics), onClick: () => setAnalytics((a) => !a), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: thumb(analytics) }) })
+          /* @__PURE__ */ jsxRuntime.jsx("div", { style: switchStyle(analytics), onClick: () => setAnalytics((a) => !a), children: /* @__PURE__ */ jsxRuntime.jsx("div", { style: thumb(analytics) }) })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0" }, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 12, fontWeight: 600 }, children: "Marketing" }),
-            /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { fontSize: 10, color: "#94a3b8" }, children: "Pubblicit\xE0 personalizzata" })
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0" }, children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 12, fontWeight: 600 }, children: "Marketing" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { style: { fontSize: 10, color: "#94a3b8" }, children: "Pubblicit\xE0 personalizzata" })
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: switchStyle(marketing), onClick: () => setMarketing((m) => !m), children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: thumb(marketing) }) })
+          /* @__PURE__ */ jsxRuntime.jsx("div", { style: switchStyle(marketing), onClick: () => setMarketing((m) => !m), children: /* @__PURE__ */ jsxRuntime.jsx("div", { style: thumb(marketing) }) })
         ] })
       ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: "12px 18px", borderTop: "1px solid #f1f5f9" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+      /* @__PURE__ */ jsxRuntime.jsx("div", { style: { padding: "12px 18px", borderTop: "1px solid #f1f5f9" }, children: /* @__PURE__ */ jsxRuntime.jsx(
         "button",
         {
           onClick: () => {
@@ -500,18 +466,16 @@ function ShopShieldBanner({ shop, onConsent, className }) {
           children: "Salva preferenze"
         }
       ) }),
-      privacyUrl && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { style: { padding: "8px 18px 14px", textAlign: "center" }, children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", { href: privacyUrl, style: { fontSize: 10, color: "#94a3b8", textDecoration: "none" }, children: "Privacy Policy" }) })
+      privacyUrl && /* @__PURE__ */ jsxRuntime.jsx("div", { style: { padding: "8px 18px 14px", textAlign: "center" }, children: /* @__PURE__ */ jsxRuntime.jsx("a", { href: privacyUrl, style: { fontSize: 10, color: "#94a3b8", textDecoration: "none" }, children: "Privacy Policy" }) })
     ] })
   ] });
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  DEFAULT_BRANDING,
-  ShopShieldBanner,
-  clearConsent,
-  fetchConfig,
-  readConsent,
-  resolveBranding,
-  useShopShield,
-  writeConsent
-});
+
+exports.DEFAULT_BRANDING = DEFAULT_BRANDING;
+exports.ShopShieldBanner = ShopShieldBanner;
+exports.clearConsent = clearConsent;
+exports.fetchConfig = fetchConfig;
+exports.readConsent = readConsent;
+exports.resolveBranding = resolveBranding;
+exports.useShopShield = useShopShield;
+exports.writeConsent = writeConsent;

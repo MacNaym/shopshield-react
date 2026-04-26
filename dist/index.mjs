@@ -1,3 +1,6 @@
+import { useState, useEffect, useCallback } from 'react';
+import { jsxs, Fragment, jsx } from 'react/jsx-runtime';
+
 var __defProp = Object.defineProperty;
 var __defProps = Object.defineProperties;
 var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
@@ -17,12 +20,6 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-
-// src/ShopShieldBanner.tsx
-import { useState as useState2 } from "react";
-
-// src/useShopShield.ts
-import { useState, useEffect, useCallback } from "react";
 
 // src/client.ts
 var SUPABASE_URL = "https://cukvfgdrnmsnlfuxezqe.supabase.co";
@@ -238,15 +235,12 @@ function useShopShield(shop) {
     saveConsent
   };
 }
-
-// src/ShopShieldBanner.tsx
-import { Fragment, jsx, jsxs } from "react/jsx-runtime";
 function ShopShieldBanner({ shop, onConsent, className }) {
   const { branding, loading, showBanner, acceptAll, rejectAll, saveConsent } = useShopShield(shop);
-  const [analytics, setAnalytics] = useState2(false);
-  const [marketing, setMarketing] = useState2(false);
-  const [tabOpen, setTabOpen] = useState2(false);
-  const [panelOpen, setPanelOpen] = useState2(false);
+  const [analytics, setAnalytics] = useState(false);
+  const [marketing, setMarketing] = useState(false);
+  const [tabOpen, setTabOpen] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(false);
   if (loading || !branding) return null;
   const primary = branding.primary_color;
   const accent = branding.accent_color;
@@ -474,13 +468,5 @@ function ShopShieldBanner({ shop, onConsent, className }) {
     ] })
   ] });
 }
-export {
-  DEFAULT_BRANDING,
-  ShopShieldBanner,
-  clearConsent,
-  fetchConfig,
-  readConsent,
-  resolveBranding,
-  useShopShield,
-  writeConsent
-};
+
+export { DEFAULT_BRANDING, ShopShieldBanner, clearConsent, fetchConfig, readConsent, resolveBranding, useShopShield, writeConsent };
