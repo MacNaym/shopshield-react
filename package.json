@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "ShopShield cookie compliance banner for React and Lovable apps",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --clean",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
@@ -21,11 +23,26 @@
     "tsup": "^8.0.0",
     "typescript": "^5.0.0"
   },
-  "keywords": ["gdpr", "cookie", "consent", "shopshield", "react", "lovable", "privacy"],
+  "keywords": [
+    "gdpr",
+    "cookie",
+    "consent",
+    "shopshield",
+    "react",
+    "lovable",
+    "privacy"
+  ],
   "author": "RMP Foodworks s.r.l.",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/shopshield/react"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   }
 }
